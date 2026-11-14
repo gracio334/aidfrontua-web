@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AidFrontUA — Global Aid Directory & Daily War Chronicle</title>
+  <meta name="description" content="Independent global directory of governmental and civilian aid programs for Ukraine, paired with a verified daily international news chronicle." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <a href="#top" class="logo">AidFront<span>UA</span></a>
+        <p class="tagline">Global Aid Directory &amp; Daily War Chronicle</p>
+      </div>
+      <nav class="main-nav" aria-label="Primary Navigation">
+        <a href="#war-log">Daily War Log</a>
+        <a href="#aid-directory">Global Aid Directory</a>
+        <a href="#about">About &amp; Verification</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top" class="container">
+
+    <!-- PILLAR 1: DAILY WAR LOG -->
+    <section id="war-log" class="section">
+      <div class="section-header">
+        <h2>Daily War Log</h2>
+        <p class="section-subtitle">Chronological record of verified international developments and primary news dispatches.</p>
+      </div>
+
+      <div class="controls">
+        <select id="log-topic-filter" aria-label="Filter news by topic">
+          <option value="ALL">All Topics</option>
+        </select>
+        <input type="search" id="log-search" placeholder="Search headlines or sources..." aria-label="Search war log" />
+      </div>
+
+      <div id="war-log-list" class="log-list">
+        <p class="status-msg">Loading verified dispatches...</p>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- PILLAR 2: GLOBAL AID DIRECTORY -->
+    <section id="aid-directory" class="section">
+      <div class="section-header">
+        <h2>Global Aid Directory</h2>
+        <p class="section-subtitle">Curated worldwide directory of governmental, international, and vetted civilian support programs for Ukraine.</p>
+      </div>
+
+      <div class="controls controls-grid">
+        <input type="search" id="aid-search" placeholder="Search program, keyword..." aria-label="Search aid directory" />
+        <select id="aid-country-filter" aria-label="Filter by country or region">
+          <option value="ALL">All Countries / Regions</option>
+        </select>
+        <select id="aid-entity-filter" aria-label="Filter by entity type">
+          <option value="ALL">All Entity Types</option>
+        </select>
+        <select id="aid-category-filter" aria-label="Filter by support category">
+          <option value="ALL">All Support Categories</option>
+        </select>
+      </div>
+
+      <div id="aid-directory-grid" class="aid-grid">
+        <p class="status-msg">Loading vetted aid programs...</p>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- PILLAR 3: ABOUT & VERIFICATION POLICY -->
+    <section id="about" class="section about-section">
+      <div class="section-header">
+        <h2>About &amp; Verification Policy</h2>
+      </div>
+      <div class="about-grid">
+        <div>
+          <h3>Mission</h3>
+          <p>
+            <strong>AidFrontUA</strong> is an independent, non-partisan documentation and indexing initiative. Our purpose is twofold: to maintain an accessible, structured directory of legitimate worldwide aid mechanisms supporting Ukraine, and to preserve a factual, chronological log of international reporting on the ongoing war.
+          </p>
+        </div>
+        <div>
+          <h3>Verification Standards</h3>
+          <ul>
+            <li><strong>Aid Programs:</strong> Every listed initiative undergoes manual verification to confirm official institutional standing, registered NGO status, or direct governmental mandate prior to publication.</li>
+            <li><strong>News Dispatches:</strong> Entries in the Daily War Log link exclusively to established international news agencies, primary official statements, and recognized journalistic outlets.</li>
+            <li><strong>Submissions &amp; Corrections:</strong> To propose a vetted aid program or report a broken link, contact <a href="mailto:contact@aidfrontua.com">contact@aidfrontua.com</a>.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; <span id="year"></span> AidFrontUA.com — Independent Documentation &amp; Aid Index.</p>
+      <p>Editorial &amp; Verification Inquiries: <a href="mailto:contact@aidfrontua.com">contact@aidfrontua.com</a></p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
