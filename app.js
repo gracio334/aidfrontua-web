@@ -77,14 +77,18 @@ function renderLogs() {
     return;
   }
 
-  container.innerHTML = filtered
+container.innerHTML = filtered
     .map((item) => {
       const date = escapeHTML(item.Date || item.Published_Date || "");
       const topic = escapeHTML(getFieldValue(item.Region_Topic));
-      const source = escapeHTML(item.Source_Name || "Primary Source");
+      
+      // Recolhe a fonte independentemente de como a nomeaste no Baserow (Source_Name, source_name, Source, etc.)
+      const rawSource = getFieldValue(item.Source_Name || item.source_name || item.Source || item.source || "Primary Source");
+      const source = escapeHTML(rawSource);
+
       const headline = escapeHTML(item.Headline || item.Title || "News Dispatch");
       const summary = escapeHTML(item.Summary || "");
-      const url = escapeHTML(item.Source_URL || "#");
+      const url = escapeHTML(item.Source_URL || item.url || "#");
 
       return `
         <article class="log-card">
