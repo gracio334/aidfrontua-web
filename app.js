@@ -64,7 +64,7 @@ function renderLogs() {
     const matchesTopic = topicFilter === "ALL" || topic === topicFilter;
 
     const headline = item.Headline || item.Title || "";
-    const source = item.Source_Name || "";
+    const source = item.Source_name || "";
     const summary = item.Summary || "";
     const text = `${headline} ${summary} ${topic} ${source}`.toLowerCase();
     const matchesQuery = !query || text.includes(query);
