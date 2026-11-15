@@ -81,7 +81,7 @@ function renderLogs() {
     .map((item) => {
       const date = escapeHTML(item.Date || item.Published_Date || "");
       const topic = escapeHTML(getFieldValue(item.Region_Topic));
-      const source = escapeHTML(item.Source_Name || "Primary Source");
+      const source = escapeHTML(item.Source_name || "Primary Source");
       const headline = escapeHTML(item.Headline || item.Title || "News Dispatch");
       const summary = escapeHTML(item.Summary || "");
       const url = escapeHTML(item.Source_URL || "#");
