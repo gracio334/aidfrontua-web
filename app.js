@@ -64,7 +64,7 @@ function renderLogs() {
     const matchesTopic = topicFilter === "ALL" || topic === topicFilter;
 
     const headline = item.Headline || item.Title || "";
-    const source = item.Source_name || "";
+    const source = item.Source_Name || "";
     const summary = item.Summary || "";
     const text = `${headline} ${summary} ${topic} ${source}`.toLowerCase();
     const matchesQuery = !query || text.includes(query);
@@ -81,7 +81,7 @@ function renderLogs() {
     .map((item) => {
       const date = escapeHTML(item.Date || item.Published_Date || "");
       const topic = escapeHTML(getFieldValue(item.Region_Topic));
-      const source = escapeHTML(item.Source_name || "Primary Source");
+      const source = escapeHTML(item.Source_Name || "Primary Source");
       const headline = escapeHTML(item.Headline || item.Title || "News Dispatch");
       const summary = escapeHTML(item.Summary || "");
       const url = escapeHTML(item.Source_URL || "#");
