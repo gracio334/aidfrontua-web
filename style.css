@@ -312,34 +312,43 @@ select:focus {
 
 .card-footer-trust {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column; /* Empilha o selo em cima e o botão em baixo */
   gap: 0.75rem;
   margin-top: auto;
-  padding-top: 0.85rem;
+  padding-top: 1rem;
   border-top: 1px solid #e5e7eb;
+}
+
+.verified-domain-wrapper {
+  display: flex;
+  align-items: center;
 }
 
 .verified-domain-badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.4rem;
   font-size: 0.78rem;
   font-weight: 500;
   color: #065f46;
   background-color: #ecfdf5;
   border: 1px solid #a7f3d0;
-  padding: 0.25rem 0.55rem;
+  padding: 0.2rem 0.6rem;
   border-radius: 4px;
-  max-width: 55%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  width: 100%; /* Ocupa a largura do cartão de forma harmoniosa */
+  box-sizing: border-box;
 }
 
 .verified-domain-badge svg {
   flex-shrink: 0;
   color: #059669;
+}
+
+.aid-btn {
+  display: block;
+  width: 100%; /* Faz o botão esticar a 100% como tinhas originalmente */
+  text-align: center;
+  /* (mantém as restantes propriedades de cores/padding que já tinhas para o botão) */
 }
 
 .btn-visit {
