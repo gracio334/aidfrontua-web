@@ -72,6 +72,17 @@ function renderLogs() {
     .join("");
 }
 
+// 1. Função auxiliar para extrair o domínio limpo (colocas esta no topo ou imediatamente antes de renderAid)
+function extractCleanDomain(url) {
+  if (!url || url === "#") return "";
+  try {
+    const hostname = new URL(url).hostname;
+    return hostname.replace(/^www\./i, "");
+  } catch (e) {
+    return "";
+  }
+}
+
 function renderAid() {
   const container = document.getElementById("aid-directory-grid");
   const query = document.getElementById("aid-search").value.toLowerCase().trim();
@@ -107,6 +118,10 @@ function renderAid() {
       const category = escapeHTML(getFieldValue(item.Category));
       const summary = escapeHTML(item.Summary || "");
       const url = escapeHTML(item.Official_URL || "#");
+      
+      // Extrai o domínio limpo para o selo de confiança
+      const rawUrl = item.Official_URL || "";
+      const cleanDomain = escapeHTML(extractCleanDomain(rawUrl));
 
       return `
         <article class="aid-card">
@@ -119,7 +134,18 @@ function renderAid() {
             <h3>${name}</h3>
             <p>${summary}</p>
           </div>
-          <a class="aid-btn" href="${url}" target="_blank" rel="noopener noreferrer">Official Program Portal &nearr;</a>
+          <div class="card-footer-trust">
+            ${cleanDomain ? `
+              <span class="verified-domain-badge" title="Manually verified official destination">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  <path d="m9 12 2 2 4-4"/>
+                </svg>
+                <span>${cleanDomain}</span>
+              </span>
+            ` : `<span></span>`}
+            <a class="aid-btn" href="${url}" target="_blank" rel="noopener noreferrer">Official Program Portal &nearr;</a>
+          </div>
         </article>
       `;
     })
