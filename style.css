@@ -381,3 +381,26 @@ select:focus {
   background-color: #e5e7eb;
   border-color: #9ca3af;
 }
+
+.brand-logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827; /* Cor escura para "AidFront" */
+  text-decoration: none;
+  display: flex;
+  align-items: baseline;
+  gap: 0.1rem;
+}
+
+.ua-badge {
+  display: inline-flex;
+}
+
+.u-letter {
+  color: #0057B7; /* Azul oficial da bandeira da Ucrânia */
+}
+
+.a-letter {
+  color: #FFD700; /* Amarelo oficial da bandeira da Ucrânia (podes usar também #FFCC00 para um tom ligeiramente mais quente) */
+  /* Dica opcional: se o amarelo ficar muito claro sobre fundo branco, podes adicionar uma subtil sombra ou usar um amarelo ocre equilibrado como #E6C200 se preferires legibilidade máxima */
+}
