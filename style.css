@@ -424,3 +424,9 @@ select:focus {
   background-color: #d1fae5;
   border-color: #34d399;
 }
+
+.brand-heading {
+  margin: 0;
+  padding: 0;
+  line-height: 1.2;
+}
