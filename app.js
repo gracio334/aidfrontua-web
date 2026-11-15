@@ -1,98 +1,6 @@
 let allLogs = [];
 let allAid = [];
-
-// Adicionar no topo do app.js (junto com allLogs e allAid)
 let visibleLogsCount = 6; // Número inicial de notícias visíveis por defeito
-
-function renderLogs() {
-  const container = document.getElementById("war-log-list");
-  if (!container) return;
-
-  const query = (document.getElementById("log-search")?.value || "").toLowerCase().trim();
-  const topicFilter = document.getElementById("log-topic-filter")?.value || "ALL";
-
-  const sortedLogs = [...allLogs].sort((a, b) => {
-    const dateA = a.Date || a.Published_Date || "";
-    const dateB = b.Date || b.Published_Date || "";
-    return String(dateB).localeCompare(String(dateA));
-  });
-
-  const filtered = sortedLogs.filter((item) => {
-    const topic = getFieldValue(item.Region_Topic);
-    const matchesTopic = topicFilter === "ALL" || topic === topicFilter;
-
-    const headline = item.Headline || item.Title || "";
-    const source = item.Source_Name || item.source_name || item.Source || "";
-    const summary = item.Summary || "";
-    const text = `${headline} ${summary} ${topic} ${source}`.toLowerCase();
-    const matchesQuery = !query || text.includes(query);
-
-    return matchesTopic && matchesQuery;
-  });
-
-  if (filtered.length === 0) {
-    container.innerHTML = `<p class="status-msg">No matching news dispatches found.</p>`;
-    return;
-  }
-
-  // Corta a lista de acordo com o número atualmente permitido (paginação)
-  const paginatedLogs = filtered.slice(0, visibleLogsCount);
-
-  let html = paginatedLogs
-    .map((item) => {
-      const date = escapeHTML(item.Date || item.Published_Date || "");
-      const topic = escapeHTML(getFieldValue(item.Region_Topic));
-      const rawSource = getFieldValue(item.Source_Name || item.source_name || item.Source || item.source || "Primary Source");
-      const source = escapeHTML(rawSource);
-      const headline = escapeHTML(item.Headline || item.Title || "News Dispatch");
-      const summary = escapeHTML(item.Summary || "");
-      const url = escapeHTML(item.Source_URL || item.url || "#");
-
-      return `
-        <article class="log-card">
-          <div class="log-meta">
-            ${date ? `<span class="log-date">${date}</span>` : ""}
-            ${topic ? `<span class="badge">${topic}</span>` : ""}
-            <span class="log-source">Source: <strong>${source}</strong></span>
-          </div>
-          <h3>${headline}</h3>
-          <p>${summary}</p>
-          <a class="log-link" href="${url}" target="_blank" rel="noopener noreferrer">Read original dispatch &rarr;</a>
-        </article>
-      `;
-    })
-    .join("");
-
-  // Se houver mais notícias para além das que estão a ser mostradas, adiciona o botão "Load More"
-  if (visibleLogsCount < filtered.length) {
-    html += `
-      <div class="load-more-container" style="grid-column: 1 / -1; text-align: center; margin-top: 1.5rem;">
-        <button id="load-more-logs-btn" class="load-more-btn">Load More Dispatches &darr;</button>
-      </div>
-    `;
-  }
-
-  container.innerHTML = html;
-
-  // Ativa o evento de clique no botão recém-criado
-  const loadMoreBtn = document.getElementById("load-more-logs-btn");
-  if (loadMoreBtn) {
-    loadMoreBtn.addEventListener("click", () => {
-      visibleLogsCount += 6; // Incrementa o lote em mais 6 notícias
-      renderLogs();
-    });
-  }
-}
-
-// Nota: Quando o utilizador altera os filtros ou pesquisa, convém reiniciar o contador para 6:
-document.getElementById("log-topic-filter")?.addEventListener("change", () => {
-  visibleLogsCount = 6;
-  renderLogs();
-});
-document.getElementById("log-search")?.addEventListener("input", () => {
-  visibleLogsCount = 6;
-  renderLogs();
-});
 
 function escapeHTML(str) {
   if (str === null || str === undefined) return "";
@@ -157,9 +65,9 @@ function renderLogs() {
     const matchesTopic = topicFilter === "ALL" || topic === topicFilter;
 
     const headline = item.Headline || item.Title || "";
-    const source = item.Source_Name || "";
+    const rawSource = getFieldValue(item.Source_Name || item.source_name || item.Source || item.source || "");
     const summary = item.Summary || "";
-    const text = `${headline} ${summary} ${topic} ${source}`.toLowerCase();
+    const text = `${headline} ${summary} ${topic} ${rawSource}`.toLowerCase();
     const matchesQuery = !query || text.includes(query);
 
     return matchesTopic && matchesQuery;
@@ -170,12 +78,15 @@ function renderLogs() {
     return;
   }
 
-container.innerHTML = filtered
+  // Corta a lista de acordo com o número atualmente permitido (paginação)
+  const paginatedLogs = filtered.slice(0, visibleLogsCount);
+
+  let html = paginatedLogs
     .map((item) => {
       const date = escapeHTML(item.Date || item.Published_Date || "");
       const topic = escapeHTML(getFieldValue(item.Region_Topic));
       
-      // Recolhe a fonte independentemente de como a nomeaste no Baserow (Source_Name, source_name, Source, etc.)
+      // Recolhe a fonte corretamente de qualquer variante do campo no Baserow
       const rawSource = getFieldValue(item.Source_Name || item.source_name || item.Source || item.source || "Primary Source");
       const source = escapeHTML(rawSource);
 
@@ -197,6 +108,26 @@ container.innerHTML = filtered
       `;
     })
     .join("");
+
+  // Se houver mais notícias para além das que estão a ser mostradas, adiciona o botão "Load More"
+  if (visibleLogsCount < filtered.length) {
+    html += `
+      <div class="load-more-container" style="grid-column: 1 / -1; text-align: center; margin-top: 1.5rem;">
+        <button id="load-more-logs-btn" class="load-more-btn">Load More Dispatches &darr;</button>
+      </div>
+    `;
+  }
+
+  container.innerHTML = html;
+
+  // Ativa o evento de clique no botão recém-criado
+  const loadMoreBtn = document.getElementById("load-more-logs-btn");
+  if (loadMoreBtn) {
+    loadMoreBtn.addEventListener("click", () => {
+      visibleLogsCount += 6; // Incrementa o lote em mais 6 notícias
+      renderLogs();
+    });
+  }
 }
 
 function renderAid() {
@@ -301,8 +232,14 @@ async function init() {
   }
 }
 
-document.getElementById("log-topic-filter")?.addEventListener("change", renderLogs);
-document.getElementById("log-search")?.addEventListener("input", renderLogs);
+document.getElementById("log-topic-filter")?.addEventListener("change", () => {
+  visibleLogsCount = 6;
+  renderLogs();
+});
+document.getElementById("log-search")?.addEventListener("input", () => {
+  visibleLogsCount = 6;
+  renderLogs();
+});
 document.getElementById("aid-search")?.addEventListener("input", renderAid);
 document.getElementById("aid-country-filter")?.addEventListener("change", renderAid);
 document.getElementById("aid-entity-filter")?.addEventListener("change", renderAid);
