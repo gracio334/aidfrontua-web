@@ -40,6 +40,12 @@ function renderLogs() {
     const text = `${item.Headline || ""} ${item.Summary || ""} ${item.Source_Name || ""}`.toLowerCase();
     const matchesQuery = !query || text.includes(query);
     return matchesTopic && matchesQuery;
+
+   // Dentro de renderLogs(), antes de filtrar:
+const sortedLogs = [...allLogs].sort((a, b) => {
+  const dateA = a.Date || a.Published_Date || "";
+  const dateB = b.Date || b.Published_Date || "";
+  return dateB.localeCompare(dateA); // Ordem decrescente (YYYY-MM-DD)
   });
 
   if (filtered.length === 0) {
