@@ -34,6 +34,48 @@
 <meta name="twitter:description" content="Independent global directory of governmental and civilian aid programs for Ukraine and verified daily war chronicle." />
 <meta name="twitter:image" content="https://aidfrontua.com/og-image.jpg" />
 <!-- <meta name="twitter:image" content="https://www.aidfrontua.com/og-preview.png" /> -->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://aidfrontua.com/#website",
+      "url": "https://aidfrontua.com/",
+      "name": "AidFrontUA",
+      "description": "Open-source global directory of humanitarian aid programs, support initiatives, and verified resources for Ukraine.",
+      "inLanguage": ["en", "uk"],
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://aidfrontua.com/?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "CollectionPage",
+      "@id": "https://aidfrontua.com/#directory",
+      "url": "https://aidfrontua.com/",
+      "name": "Ukraine Humanitarian Aid & Support Directory",
+      "isPartOf": {
+        "@id": "https://aidfrontua.com/#website"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Humanitarian Aid for Ukraine"
+      },
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Volunteers, NGOs, Donors, and Ukrainian Citizens"
+      }
+    }
+  ]
+}
+</script>
+  
 </head>
 <body>
 
